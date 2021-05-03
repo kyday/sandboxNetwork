@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import React from "react";
+import MainLayout from "../../Components/Layout/MainLayout";
 
-function App() {
-  return <Button>asdad</Button>;
+function Main(props) {
+  return <MainLayout>asdasasdasddsa</MainLayout>;
 }
 
-export default App;
-
-const Button = styled.button``;
+export default Main;

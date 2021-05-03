@@ -2,10 +2,10 @@ import { css } from "styled-components";
 
 const device = {
   desktop: 1024,
-  mobile: 480,
+  mobile: 450,
 };
 
-const objKeys = Object.keys(device).reduce((acc, label) => {
+const deviceObj = Object.keys(device).reduce((acc, label) => {
   acc[label] = (...args) => css`
     @media (max-width: ${device[label]}px) {
       ${css(...args)};
@@ -16,10 +16,12 @@ const objKeys = Object.keys(device).reduce((acc, label) => {
 
 const colors = {
   main: "#1C1F2E",
-  gray: "rgba(33, 33, 33, 0.98)",
+  gray: "#202020",
+  white: "#fff",
+  black: "#181818",
 };
 
-const flexContentCenter = css`
+const flexCenter = css`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,8 +29,8 @@ const flexContentCenter = css`
 
 const theme = {
   colors,
-  flexContentCenter,
-  objKeys,
+  flexCenter,
+  deviceObj,
 };
 
 export default theme;

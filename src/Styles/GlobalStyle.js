@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     * {
     box-sizing: border-box;
   }
+
   html,
   body,
   div,
@@ -114,6 +115,10 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+  svg:not(:root) {
+      overflow: visible;
+  }
+
 `;
 
 export default GlobalStyle;
