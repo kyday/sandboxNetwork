@@ -19,6 +19,7 @@ const colors = {
   gray: "#202020",
   white: "#fff",
   black: "#181818",
+  dropListColor: "#212121",
 };
 
 const flexCenter = css`

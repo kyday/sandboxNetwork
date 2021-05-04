@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Main from "./Pages/Main/Main";
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/Sidebar/Sidebar";
+import Favorite from "./Pages/Favorite/Favorite";
 
 function Routes(props) {
   return (
@@ -12,6 +13,7 @@ function Routes(props) {
       <Sidebar />
       <Switch>
         <Route exact path='/' component={Main} />
+        <Route exact path='/favorite' component={Favorite} />
       </Switch>
     </Router>
   );

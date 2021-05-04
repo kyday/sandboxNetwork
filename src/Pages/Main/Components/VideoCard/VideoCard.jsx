@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FiMoreVertical } from "react-icons/fi";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownDivider,
+} from "styled-dropdown-component";
 
 const VideoCard = ({ video }) => {
+  const [hidden, setHidden] = useState(true);
   const [inHover, setInHover] = useState(false);
+
   const handleMoreOnClick = (e) => {
     e.preventDefault();
+    setHidden(!hidden);
   };
 
   return (
@@ -23,9 +32,19 @@ const VideoCard = ({ video }) => {
           </VideoTitle>
           <span className='secondary'>UserName</span>
         </VideoInfo>
-        <button>
-          {inHover && <FiMoreVertical size={25} onClick={handleMoreOnClick} />}
+        <button onClick={handleMoreOnClick}>
+          {inHover && <FiMoreVertical size={25} />}
         </button>
+
+        <Dropdown>
+          <CustomDropdownMenu
+            right={true}
+            hidden={hidden}
+            toggle={() => setHidden(!hidden)}
+          >
+            <DropdownItem>Favorite List 추가</DropdownItem>
+          </CustomDropdownMenu>
+        </Dropdown>
       </VideoInfoContainer>
     </VideoCardLayOut>
   );
@@ -58,4 +77,22 @@ export const VideoInfo = styled.div`
 
 export const VideoTitle = styled.h1`
   color: ${({ theme }) => theme.colors.white};
+`;
+
+export const CustomDropdownMenu = styled(DropdownMenu)`
+  ${Dropdown} {
+    border: 1px solid red;
+  }
+
+  ${DropdownItem} {
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.white};
+    &:hover {
+      background-color: #909090;
+    }
+  }
+
+  display: ${(props) => props.multiple && `hidden`};
+  background-color: ${({ theme }) => theme.colors.dropListColor};
+  margin: -1rem -2rem;
 `;
