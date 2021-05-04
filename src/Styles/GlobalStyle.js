@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
     * {
     box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   html,

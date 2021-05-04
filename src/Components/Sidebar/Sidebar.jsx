@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { HomeIcon, LikeIcon } from "../Icons/Icons";
 
 function Sidebar(props) {

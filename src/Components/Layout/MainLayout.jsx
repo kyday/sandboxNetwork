@@ -7,8 +7,9 @@ function MainLayout({ children }) {
 export default MainLayout;
 
 export const MainWrapper = styled.main`
-  width: 100vw;
-  height: 100vh;
-  padding: 6% 15%;
+  width: 90%;
+  height: 100%;
+  margin-left: 11.5%;
+  padding: 7% 5%;
   background-color: ${({ theme }) => theme.colors.black};
 `;
