@@ -5,15 +5,24 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownDivider,
 } from "styled-dropdown-component";
+import { useDispatch } from "react-redux";
+import { showModal } from "../../../../store/actions";
 
 const VideoCard = ({ video }) => {
   const [hidden, setHidden] = useState(true);
   const [inHover, setInHover] = useState(false);
 
+  const dispatch = useDispatch();
+
   const handleMoreOnClick = (e) => {
     e.preventDefault();
+    setHidden(!hidden);
+  };
+
+  const handleOnModal = (e) => {
+    e.preventDefault();
+    dispatch(showModal());
     setHidden(!hidden);
   };
 
@@ -41,6 +50,7 @@ const VideoCard = ({ video }) => {
             right={true}
             hidden={hidden}
             toggle={() => setHidden(!hidden)}
+            onClick={handleOnModal}
           >
             <DropdownItem>Favorite List 추가</DropdownItem>
           </CustomDropdownMenu>
@@ -73,6 +83,9 @@ export const VideoInfoContainer = styled.div`
 
 export const VideoInfo = styled.div`
   flex: 9;
+  .secondary {
+    color: #909090;
+  }
 `;
 
 export const VideoTitle = styled.h1`
@@ -80,10 +93,6 @@ export const VideoTitle = styled.h1`
 `;
 
 export const CustomDropdownMenu = styled(DropdownMenu)`
-  ${Dropdown} {
-    border: 1px solid red;
-  }
-
   ${DropdownItem} {
     cursor: pointer;
     color: ${({ theme }) => theme.colors.white};

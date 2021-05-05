@@ -14,7 +14,7 @@ function Main(props) {
 
   const getAxios = useCallback(async () => {
     const videoList = await GetAxios.getData(currentPage);
-    setDatas(videoList?.data);
+    setDatas(videoList.data);
   }, [currentPage]);
 
   useEffect(() => {
@@ -24,19 +24,22 @@ function Main(props) {
   return (
     <MainLayout>
       <VideoLayout>
-        {datas.slice(PAGESTART, PAGEEND).map((video, idx) => {
-          return (
-            <Link
-              key={idx}
-              to={{
-                pathname: `https://youtube.com/watch?v=${video.video_id}`,
-              }}
-              target='_blank'
-            >
-              <VideoCard video={video} />
-            </Link>
-          );
-        })}
+        <>
+          {datas &&
+            datas.slice(PAGESTART, PAGEEND).map((video, idx) => {
+              return (
+                <Link
+                  key={idx}
+                  to={{
+                    pathname: `https://youtube.com/watch?v=${video.video_id}`,
+                  }}
+                  target='_blank'
+                >
+                  <VideoCard video={video} />
+                </Link>
+              );
+            })}
+        </>
       </VideoLayout>
     </MainLayout>
   );

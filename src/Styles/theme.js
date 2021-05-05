@@ -28,9 +28,15 @@ const flexCenter = css`
   justify-content: center;
 `;
 
+const flexBetween = css`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const theme = {
   colors,
   flexCenter,
+  flexBetween,
   deviceObj,
 };
 

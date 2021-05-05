@@ -9,8 +9,9 @@ const GlobalStyle = createGlobalStyle`
 
   html, body {
     overflow-x: hidden;
+    background-color: ${({ theme }) => theme.colors.black};
   }
-
+  
   html,
   body,
   div,
