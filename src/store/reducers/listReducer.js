@@ -1,18 +1,12 @@
 import { ADD_LIST, TOGGLE_LIST, REMOVE_LIST } from "../actions/";
 
-const initialState = [
-  {
-    id: Date.now(),
-    text: "TODOLIST 만들기",
-    done: false,
-  },
-];
+const initialState = [];
 
 const listReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LIST:
       return state.concat({
-        id: action.payload.id,
+        id: Date.now(),
         text: action.payload.text,
         done: false,
       });

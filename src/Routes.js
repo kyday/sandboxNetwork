@@ -14,7 +14,7 @@ function Routes(props) {
       <Sidebar />
       <Switch>
         <Route exact path='/' component={Main} />
-        <Route exact path='/favorite' component={Favorite} />
+        <Route exact path='/favorite/:id' component={Favorite} />
       </Switch>
       <Modal />
     </Router>

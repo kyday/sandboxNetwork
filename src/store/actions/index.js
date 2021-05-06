@@ -8,11 +8,10 @@ export const SHOW_MODAL = "SHOW_MODAL";
 export const DROP_MODAL = "DROP_MODAL";
 
 //list action function
-export const addList = (id, text) => {
+export const addList = (text) => {
   return {
     type: ADD_LIST,
     payload: {
-      id,
       text,
     },
   };

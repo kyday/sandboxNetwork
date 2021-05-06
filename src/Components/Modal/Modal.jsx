@@ -1,19 +1,21 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
+import ListItem from "./Components/ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { addList, dropModal } from "../../store/actions/";
+import { addList, dropModal, toggleList } from "../../store/actions/";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdDone } from "react-icons/md";
 
 function Modal(props) {
   const [value, setValue] = useState("");
   const status = useSelector((state) => state.modalReducer.modal);
   const lists = useSelector((state) => state.listReducer);
-  console.log(lists);
 
   const dispatch = useDispatch();
 
   const onModalClose = () => {
     dispatch(dropModal());
+    dispatch(toggleList());
     setValue("");
   };
 
@@ -22,8 +24,10 @@ function Modal(props) {
     setValue(value);
   }, []);
 
-  const test = () => {
-    console.log("안녕");
+  const onCreate = () => {
+    dispatch(addList(value));
+    dispatch(dropModal());
+    setValue("");
   };
 
   return (
@@ -44,19 +48,30 @@ function Modal(props) {
               />
             </ModalTitle>
             <ModalContent>
-              {lists?.map((item) => {
-                return <div key={item.id}>{item.text}</div>;
-              })}
+              {lists &&
+                lists.map((item) => {
+                  return (
+                    <ListItem
+                      key={item.id}
+                      id={item.id}
+                      text={item.text}
+                      done={item.done}
+                    />
+                  );
+                })}
             </ModalContent>
             <ModalFooter>
               <h2>Name</h2>
               <ModalInput
+                type='text'
                 placeholder='Input your name, please.'
                 value={value}
                 onChange={onInputChange}
+                maxLength='50'
               />
+              <div className='counter'>{`${parseInt(value.length)}/50`}</div>
             </ModalFooter>
-            <button onClick={test}>만들기</button>
+            <button onClick={onCreate}>만들기</button>
           </ModalBody>
         </ModalContainer>
       )}
@@ -105,8 +120,11 @@ export const ModalTitle = styled.div`
 `;
 
 export const ModalContent = styled.div`
+  max-height: 300px;
+  max-width: 600px;
   color: ${({ theme }) => theme.colors.white};
-  padding: 1rem 0.5rem;
+  padding: 0.5rem 0.5rem;
+  overflow-y: auto;
 `;
 
 export const ModalFooter = styled.div`
@@ -117,11 +135,18 @@ export const ModalFooter = styled.div`
   h2 {
     padding-bottom: 1rem;
   }
+
+  .counter {
+    width: 100%;
+    text-align: right;
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 export const ModalInput = styled.input`
   width: 100%;
   color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.white};
-  padding: 3% 1%;
+  padding: 2% 0.5%;
 `;

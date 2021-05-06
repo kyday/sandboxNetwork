@@ -1,23 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { HomeIcon, LikeIcon } from "../Icons/Icons";
+import { HomeIcon } from "../Icons/Icons";
+import { MdPlaylistPlay } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 function Sidebar(props) {
+  const listNames = useSelector((state) => state.listReducer);
+
   return (
     <SidebarWrapper>
-      <StyledLink to='/'>
-        <div className='icon'>
+      <Link to='/'>
+        <IconWrapper>
           <HomeIcon />
-          <span>Home</span>
-        </div>
-      </StyledLink>
-      <StyledLink to='/favorite'>
-        <div className='icon'>
-          <LikeIcon />
-          <span>Favorite videos</span>
-        </div>
-      </StyledLink>
+          <IconName>Home</IconName>
+        </IconWrapper>
+      </Link>
+      {listNames.map((list) => {
+        return (
+          <Link to={`/favorite/${list.id}`}>
+            <IconWrapper>
+              <MdPlaylistPlay />
+              <IconName>
+                {list.text.length > 10
+                  ? list.text.slice(0, 10) + "..."
+                  : list.text}
+              </IconName>
+            </IconWrapper>
+          </Link>
+        );
+      })}
     </SidebarWrapper>
   );
 }
@@ -27,38 +39,35 @@ export default Sidebar;
 export const SidebarWrapper = styled.article`
   position: fixed;
   left: 0;
-  top: 5%;
+  top: 7.5%;
   bottom: 0;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray};
-  padding: 1.875rem 0;
+  width: 13%;
+  overflow-y: auto;
   transition: all 0.3s;
+`;
 
-  .icon {
-    display: flex;
-    width: 100%;
-    color: ${({ theme }) => theme.colors.white};
-    padding: 1rem 3.5rem 1rem 1rem;
+const IconWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  color: ${({ theme }) => theme.colors.white};
+  padding: 1.5rem 2rem;
 
-    &:hover {
-      background-color: #383838;
-    }
-
-    svg {
-      fill: ${({ theme }) => theme.colors.white};
-      width: 35px;
-      height: 35px;
-    }
+  &:hover {
+    background-color: #383838;
   }
 
-  .icon span {
-    display: inline-block;
-    padding-left: 1rem;
-    font-size: 1rem;
-    position: relative;
-    top: 7px;
-    white-space: nowrap;
+  svg {
+    fill: ${({ theme }) => theme.colors.white};
+    width: 35px;
+    height: 35px;
   }
 `;
 
-export const StyledLink = styled(Link)``;
+export const IconName = styled.span`
+  display: inline-block;
+  font-size: 0.875rem;
+  padding-left: 1rem;
+  white-space: nowrap;
+`;
