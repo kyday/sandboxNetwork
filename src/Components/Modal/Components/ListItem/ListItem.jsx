@@ -1,17 +1,32 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { MdDone } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { addList, removeList, toggleList } from "../../../../store/actions";
+import {
+  addList,
+  removeList,
+  toggleList,
+  addVideo,
+  removeVideo,
+} from "../../../../store/actions";
 
 function ListItem(props) {
   const { id, text, done } = props;
 
+  const videos = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  console.log(videos);
 
   const onToggle = () => {
     dispatch(toggleList(id));
+
+    if (done !== false) {
+      console.log("false입니다.");
+      dispatch(removeVideo(id));
+    }
   };
 
   const onRemove = () => {

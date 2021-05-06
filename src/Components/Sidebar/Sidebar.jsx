@@ -16,20 +16,27 @@ function Sidebar(props) {
           <IconName>Home</IconName>
         </IconWrapper>
       </Link>
-      {listNames.map((list) => {
-        return (
-          <Link to={`/favorite/${list.id}`}>
-            <IconWrapper>
-              <MdPlaylistPlay />
-              <IconName>
-                {list.text.length > 10
-                  ? list.text.slice(0, 10) + "..."
-                  : list.text}
-              </IconName>
-            </IconWrapper>
-          </Link>
-        );
-      })}
+      {listNames &&
+        listNames.map((list) => {
+          return (
+            <Link
+              key={list.id}
+              to={{
+                pathname: `/favorite/${list.id}`,
+                state: list.text,
+              }}
+            >
+              <IconWrapper>
+                {list.text.length > 0 && <MdPlaylistPlay />}
+                <IconName>
+                  {list.text.length > 10
+                    ? list.text.slice(0, 10) + "..."
+                    : list.text}
+                </IconName>
+              </IconWrapper>
+            </Link>
+          );
+        })}
     </SidebarWrapper>
   );
 }

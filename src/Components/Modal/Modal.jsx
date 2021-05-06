@@ -2,20 +2,18 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import ListItem from "./Components/ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { addList, dropModal, toggleList } from "../../store/actions/";
+import { addList, dropModal, toggleListReset } from "../../store/actions/";
 import { AiOutlineClose } from "react-icons/ai";
-import { MdDone } from "react-icons/md";
 
 function Modal(props) {
   const [value, setValue] = useState("");
   const status = useSelector((state) => state.modalReducer.modal);
   const lists = useSelector((state) => state.listReducer);
-
   const dispatch = useDispatch();
 
   const onModalClose = () => {
     dispatch(dropModal());
-    dispatch(toggleList());
+    dispatch(toggleListReset());
     setValue("");
   };
 
@@ -25,8 +23,14 @@ function Modal(props) {
   }, []);
 
   const onCreate = () => {
+    if (!value) {
+      alert("Please enter the input value!");
+      return;
+    }
+
     dispatch(addList(value));
     dispatch(dropModal());
+    dispatch(toggleListReset());
     setValue("");
   };
 

@@ -6,6 +6,7 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "styled-dropdown-component";
+import { addVideo } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
 import { showModal } from "../../../../store/actions";
 
@@ -23,6 +24,7 @@ const VideoCard = ({ video }) => {
   const handleOnModal = (e) => {
     e.preventDefault();
     dispatch(showModal());
+    dispatch(addVideo(video));
     setHidden(!hidden);
   };
 

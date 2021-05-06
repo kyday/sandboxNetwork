@@ -7,8 +7,13 @@ import GlobalStyle from "./Styles/GlobalStyle";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./store/reducers/";
+import { loadState, saveState } from "./utils/localStorage/localStorage";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, loadState());
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

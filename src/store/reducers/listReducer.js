@@ -1,4 +1,4 @@
-import { ADD_LIST, TOGGLE_LIST, REMOVE_LIST } from "../actions/";
+import { ADD_LIST, TOGGLE_LIST, REMOVE_LIST, TOGGLE_RESET } from "../actions/";
 
 const initialState = [];
 
@@ -13,6 +13,10 @@ const listReducer = (state = initialState, action) => {
     case TOGGLE_LIST:
       return state.map((list) =>
         list.id === action.payload.id ? { ...list, done: !list.done } : list
+      );
+    case TOGGLE_RESET:
+      return state.map((list) =>
+        action.payload.done === false ? { ...list, done: false } : list
       );
     case REMOVE_LIST:
       return state.filter((list) => list.id !== action.payload.id);
