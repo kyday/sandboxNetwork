@@ -2,7 +2,12 @@ import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import ListItem from "./Components/ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { addList, dropModal, toggleListReset } from "../../store/actions/";
+import {
+  addList,
+  dropModal,
+  toggleListReset,
+  addVideo,
+} from "../../store/actions/";
 import { AiOutlineClose } from "react-icons/ai";
 
 function Modal(props) {
@@ -13,7 +18,6 @@ function Modal(props) {
 
   const onModalClose = () => {
     dispatch(dropModal());
-    dispatch(toggleListReset());
     setValue("");
   };
 
@@ -30,7 +34,6 @@ function Modal(props) {
 
     dispatch(addList(value));
     dispatch(dropModal());
-    dispatch(toggleListReset());
     setValue("");
   };
 
@@ -60,6 +63,7 @@ function Modal(props) {
                       id={item.id}
                       text={item.text}
                       done={item.done}
+                      lists={item.lists}
                     />
                   );
                 })}

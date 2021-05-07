@@ -15,6 +15,8 @@ const listReducer = (state = initialState, action) => {
         list.id === action.payload.id ? { ...list, done: !list.done } : list
       );
     case TOGGLE_RESET:
+      const newItems = [...state, action.payload];
+
       return state.map((list) =>
         action.payload.done === false ? { ...list, done: false } : list
       );

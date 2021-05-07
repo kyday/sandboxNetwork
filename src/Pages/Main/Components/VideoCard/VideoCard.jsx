@@ -6,14 +6,12 @@ import {
   DropdownItem,
   DropdownMenu,
 } from "styled-dropdown-component";
-import { addVideo } from "../../../../store/actions";
 import { useDispatch } from "react-redux";
-import { showModal } from "../../../../store/actions";
+import { showModal, toggleListReset } from "../../../../store/actions";
 
 const VideoCard = ({ video }) => {
   const [hidden, setHidden] = useState(true);
   const [inHover, setInHover] = useState(false);
-
   const dispatch = useDispatch();
 
   const handleMoreOnClick = (e) => {
@@ -24,7 +22,7 @@ const VideoCard = ({ video }) => {
   const handleOnModal = (e) => {
     e.preventDefault();
     dispatch(showModal());
-    dispatch(addVideo(video));
+    // dispatch(toggleListReset());
     setHidden(!hidden);
   };
 

@@ -8,6 +8,8 @@ export const REMOVE_LIST = "REMOVE_LIST";
 export const ADD_VIDEO = "ADD_VIDEO";
 export const REMOVE_VIDEO = "REMOVE_VIDEO";
 
+export const SEND_VIDEO = "SEND_VIDEO";
+
 //modal type
 export const SHOW_MODAL = "SHOW_MODAL";
 export const DROP_MODAL = "DROP_MODAL";
@@ -51,13 +53,12 @@ export const toggleListReset = () => {
 
 //video action function
 export const addVideo = (video) => {
-  console.log("video===>", video);
   return {
     type: ADD_VIDEO,
     payload: {
-      videoId: video.video_id,
-      videoTitle: video.title,
-      thumb: video.thumbnail,
+      video_id: video.video_id,
+      title: video.title,
+      thumbnail: video.thumbnail,
     },
   };
 };
@@ -65,6 +66,15 @@ export const addVideo = (video) => {
 export const removeVideo = (id) => {
   return {
     type: REMOVE_VIDEO,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const sendVideo = (id) => {
+  return {
+    type: SEND_VIDEO,
     payload: {
       id,
     },

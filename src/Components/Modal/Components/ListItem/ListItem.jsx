@@ -10,21 +10,21 @@ import {
   toggleList,
   addVideo,
   removeVideo,
+  sendVideo,
 } from "../../../../store/actions";
 
 function ListItem(props) {
   const { id, text, done } = props;
 
-  const videos = useSelector((state) => state);
+  const videos = useSelector((state) => state.videoReducer);
   const dispatch = useDispatch();
-
-  console.log(videos);
 
   const onToggle = () => {
     dispatch(toggleList(id));
 
-    if (done !== false) {
-      console.log("false입니다.");
+    if (!done) {
+      dispatch(sendVideo(!done));
+    } else {
       dispatch(removeVideo(id));
     }
   };
