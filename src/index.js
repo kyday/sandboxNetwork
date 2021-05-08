@@ -5,11 +5,13 @@ import { ThemeProvider } from "styled-components";
 import theme from "./Styles/theme";
 import GlobalStyle from "./Styles/GlobalStyle";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./store/reducers/";
 import { loadState, saveState } from "./utils/localStorage/localStorage";
 
-const store = createStore(rootReducer, loadState());
+import thunk from "redux-thunk";
+
+const store = createStore(rootReducer, loadState(), applyMiddleware(thunk));
 
 store.subscribe(() => {
   saveState(store.getState());

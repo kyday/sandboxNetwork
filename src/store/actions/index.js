@@ -1,3 +1,5 @@
+import GetAxios from "../../api/GetAxios";
+
 //list type
 export const ADD_LIST = "ADD_LIST";
 export const TOGGLE_LIST = "TOGGLE_LIST";
@@ -11,6 +13,7 @@ export const REMOVE_VIDEO = "REMOVE_VIDEO";
 export const SEND_VIDEO = "SEND_VIDEO";
 
 //modal type
+export const REGISTER_MODAL = "REGISTER_MODAL";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const DROP_MODAL = "DROP_MODAL";
 
@@ -52,13 +55,14 @@ export const toggleListReset = () => {
 };
 
 //video action function
-export const addVideo = (video) => {
+export const addVideo = (video, done) => {
   return {
     type: ADD_VIDEO,
     payload: {
-      video_id: video.video_id,
-      title: video.title,
-      thumbnail: video.thumbnail,
+      id: video[0].video_id,
+      title: video[0].title,
+      thumbnail: video[0].thumbnail,
+      done,
     },
   };
 };
@@ -82,5 +86,40 @@ export const sendVideo = (id) => {
 };
 
 //modal action function
-export const showModal = (item) => ({ type: SHOW_MODAL, payload: item });
-export const dropModal = () => ({ type: DROP_MODAL });
+
+export const registerModal = (id) => {
+  return {
+    type: REGISTER_MODAL,
+    payload: { id },
+  };
+};
+
+export const showModal = (id) => {
+  console.log("showmodal==>", id);
+  return {
+    type: SHOW_MODAL,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const dropModal = (id) => {
+  return {
+    type: DROP_MODAL,
+    payload: {
+      id,
+    },
+  };
+};
+
+export const dataset = (id, done) => async (dispatch) => {
+  try {
+    console.log("done==>", !done);
+    const res = await GetAxios.getData();
+    const filterData = res.data.filter((item) => item.video_id === id);
+    if (!done) dispatch(addVideo(filterData, !done));
+  } catch (err) {
+    console.log(err);
+  }
+};

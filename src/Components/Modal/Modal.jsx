@@ -10,11 +10,13 @@ import {
 } from "../../store/actions/";
 import { AiOutlineClose } from "react-icons/ai";
 
-function Modal(props) {
+function Modal() {
   const [value, setValue] = useState("");
-  const status = useSelector((state) => state.modalReducer.modal);
+  const status = useSelector((state) => state.modalReducer.modals);
   const lists = useSelector((state) => state.listReducer);
   const dispatch = useDispatch();
+
+  console.log("videos ==>", status);
 
   const onModalClose = () => {
     dispatch(dropModal());

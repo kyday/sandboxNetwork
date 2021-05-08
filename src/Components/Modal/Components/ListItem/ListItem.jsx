@@ -8,22 +8,24 @@ import {
   addList,
   removeList,
   toggleList,
-  addVideo,
   removeVideo,
-  sendVideo,
+  dataset,
+  showModal,
 } from "../../../../store/actions";
 
 function ListItem(props) {
   const { id, text, done } = props;
 
   const videos = useSelector((state) => state.videoReducer);
+  const videosID = useSelector((state) => state.modalReducer.id);
+
   const dispatch = useDispatch();
 
   const onToggle = () => {
     dispatch(toggleList(id));
 
     if (!done) {
-      dispatch(sendVideo(!done));
+      dispatch(dataset(videosID, done));
     } else {
       dispatch(removeVideo(id));
     }

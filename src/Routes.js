@@ -16,7 +16,7 @@ function Routes(props) {
         <Route exact path='/' component={Main} />
         <Route exact path='/favorite/:id' component={Favorite} />
       </Switch>
-      <Modal />
+      {/* <Modal /> */}
     </Router>
   );
 }

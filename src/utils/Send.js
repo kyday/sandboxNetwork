@@ -10,7 +10,6 @@ instance.interceptors.request.use(
     return config;
   },
   function (error) {
-    alert(error);
     return Promise.reject(error);
   }
 );
@@ -21,6 +20,9 @@ instance.interceptors.response.use(
   },
 
   function (error) {
+    if (error.response && error.response.status === 404) {
+      console.clear();
+    }
     return Promise.reject(error);
   }
 );

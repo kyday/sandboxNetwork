@@ -9,12 +9,12 @@ import MainLayout from "../../Components/Layout/MainLayout";
 function Favorite(props) {
   const location = useLocation();
 
+  console.log(location.state);
+
   const favoriteVideo = useSelector((state) => state.videoReducer);
   const lists = useSelector((state) => state.listReducer);
 
   const { id } = useParams();
-
-  console.log("lists=======>", lists);
 
   console.log(
     "favoriteVideo==>",

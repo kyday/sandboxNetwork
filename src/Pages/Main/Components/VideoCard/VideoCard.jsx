@@ -7,9 +7,13 @@ import {
   DropdownMenu,
 } from "styled-dropdown-component";
 import { useDispatch } from "react-redux";
-import { showModal, toggleListReset } from "../../../../store/actions";
+import {
+  showModal,
+  registerModal,
+  toggleListReset,
+} from "../../../../store/actions";
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ videoId, videoTitle, thumbnail }) => {
   const [hidden, setHidden] = useState(true);
   const [inHover, setInHover] = useState(false);
   const dispatch = useDispatch();
@@ -21,42 +25,44 @@ const VideoCard = ({ video }) => {
 
   const handleOnModal = (e) => {
     e.preventDefault();
-    dispatch(showModal());
+    dispatch(showModal(videoId));
     // dispatch(toggleListReset());
     setHidden(!hidden);
   };
 
   return (
-    <VideoCardLayOut
-      onMouseEnter={() => setInHover(true)}
-      onMouseLeave={() => setInHover(false)}
-    >
-      <Thumb src={video.thumbnail} alt='thumbnail' />
-      <VideoInfoContainer>
-        <VideoInfo>
-          <VideoTitle>
-            {video.title.length > 40
-              ? video.title.slice(0, 40) + "..."
-              : video.title}
-          </VideoTitle>
-          <span className='secondary'>UserName</span>
-        </VideoInfo>
-        <button onClick={handleMoreOnClick}>
-          {inHover && <FiMoreVertical size={25} />}
-        </button>
+    <>
+      <VideoCardLayOut
+        onMouseEnter={() => setInHover(true)}
+        onMouseLeave={() => setInHover(false)}
+      >
+        <Thumb src={thumbnail} alt='thumbnail' />
+        <VideoInfoContainer>
+          <VideoInfo>
+            <VideoTitle>
+              {videoTitle.length > 40
+                ? videoTitle.slice(0, 40) + "..."
+                : videoTitle}
+            </VideoTitle>
+            <span className='secondary'>UserName</span>
+          </VideoInfo>
+          <button onClick={handleMoreOnClick}>
+            {inHover && <FiMoreVertical size={25} />}
+          </button>
 
-        <Dropdown>
-          <CustomDropdownMenu
-            right={true}
-            hidden={hidden}
-            toggle={() => setHidden(!hidden)}
-            onClick={handleOnModal}
-          >
-            <DropdownItem>Favorite List 추가</DropdownItem>
-          </CustomDropdownMenu>
-        </Dropdown>
-      </VideoInfoContainer>
-    </VideoCardLayOut>
+          <Dropdown>
+            <CustomDropdownMenu
+              right={true}
+              hidden={hidden}
+              toggle={() => setHidden(!hidden)}
+              onClick={handleOnModal}
+            >
+              <DropdownItem>Favorite List 추가</DropdownItem>
+            </CustomDropdownMenu>
+          </Dropdown>
+        </VideoInfoContainer>
+      </VideoCardLayOut>
+    </>
   );
 };
 

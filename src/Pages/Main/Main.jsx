@@ -4,10 +4,12 @@ import MainLayout from "../../Components/Layout/MainLayout";
 import GetAxios from "../../api/GetAxios";
 import VideoLayout from "../../Styles/VideoLayout";
 import VideoCard from "./Components/VideoCard/VideoCard";
+import Modal from "../../Components/Modal/Modal";
 
 function Main(props) {
   const [datas, setDatas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [videoContent, setVideoContent] = useState([]);
 
   const PAGEEND = currentPage * 100;
   const PAGESTART = PAGEEND - 100;
@@ -28,17 +30,24 @@ function Main(props) {
           {datas &&
             datas.slice(PAGESTART, PAGEEND).map((video, idx) => {
               return (
-                <Link
-                  key={idx}
-                  to={{
-                    pathname: `https://youtube.com/watch?v=${video.video_id}`,
-                  }}
-                  target='_blank'
-                >
-                  <VideoCard video={video} />
-                </Link>
+                <>
+                  <Link
+                    key={idx}
+                    to={{
+                      pathname: `https://youtube.com/watch?v=${video.video_id}`,
+                    }}
+                    target='_blank'
+                  >
+                    <VideoCard
+                      videoId={video.video_id}
+                      videoTitle={video.title}
+                      thumbnail={video.thumbnail}
+                    />
+                  </Link>
+                </>
               );
             })}
+          <Modal />
         </>
       </VideoLayout>
     </MainLayout>
