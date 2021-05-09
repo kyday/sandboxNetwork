@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import FavoriteVideo from "./Components/FavoriteVideo";
 import { useParams } from "react-router-dom";
@@ -8,18 +9,14 @@ import MainLayout from "../../Components/Layout/MainLayout";
 
 function Favorite(props) {
   const location = useLocation();
-
-  console.log(location);
-
-  const favoriteVideo = useSelector((state) => state.videoReducer);
-  const lists = useSelector((state) => state.listReducer);
-
-  console.log("favoriteVideo==============>", favoriteVideo);
-
+  const favoriteVideo = useSelector((state) => state.listReducer);
   const { id } = useParams();
 
-  const listId = lists.map((item) => String(item.id));
-  const matchId = listId.filter((item) => item === id);
+  const filterFavoriteVideo = favoriteVideo.filter(
+    (item) => item.id === Number(id)
+  );
+
+  console.log("favoriteVideo", favoriteVideo);
 
   return (
     <MainLayout>
@@ -28,14 +25,18 @@ function Favorite(props) {
       </FavoriteTitleContainer>
       <FavoriteVideosContainer>
         <ul>
-          {matchId.join("") === id &&
-            favoriteVideo.map((list) => {
-              return (
-                <li>
-                  <FavoriteVideo favoriteVideo={list} />
-                </li>
-              );
-            })}
+          {filterFavoriteVideo[0].video?.map((list) => {
+            return (
+              <Link
+                to={{
+                  pathname: `https://youtube.com/watch?v=${list.id}`,
+                }}
+                target='_blank'
+              >
+                <li key={list.id}>{<FavoriteVideo favoriteVideo={list} />}</li>
+              </Link>
+            );
+          })}
         </ul>
       </FavoriteVideosContainer>
     </MainLayout>
@@ -45,6 +46,7 @@ function Favorite(props) {
 export default Favorite;
 
 export const FavoriteTitleContainer = styled.section`
+  color: ${({ theme }) => theme.colors.white};
   ${({ theme }) => theme.flexCenter};
   margin-bottom: 8%;
 `;
@@ -58,6 +60,7 @@ export const FavoriteVideosContainer = styled.article`
   li {
     color: ${({ theme }) => theme.colors.white};
     margin-bottom: 5%;
-    border: 1px solid ${({ theme }) => theme.colors.white};
+    padding-bottom: 3%;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.white};
   }
 `;

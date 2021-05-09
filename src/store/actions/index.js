@@ -53,7 +53,6 @@ export const toggleListReset = () => {
 
 //video action function
 export const addVideo = (video, listId) => {
-  console.log("action listID!!!!!!!!!!!!!==>", listId);
   return {
     type: ADD_VIDEO,
     payload: {
@@ -76,7 +75,6 @@ export const removeVideo = (id, listId) => {
 };
 
 //modal action function
-
 export const showModal = (id) => {
   return {
     type: SHOW_MODAL,
@@ -99,7 +97,6 @@ export const dataset = (id, listId) => async (dispatch) => {
   try {
     const res = await GetAxios.getData();
     const filterData = res.data.filter((item) => item.video_id === id);
-
     dispatch(addVideo(filterData, listId));
   } catch (err) {
     console.log(err);

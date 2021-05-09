@@ -10,8 +10,6 @@ import {
 const initialState = [];
 
 const listReducer = (state = initialState, action) => {
-  console.log("action.payload--->", action.payload);
-  console.log("state--->", state);
   switch (action.type) {
     case ADD_LIST:
       return state.concat({
@@ -22,31 +20,29 @@ const listReducer = (state = initialState, action) => {
       });
 
     case ADD_VIDEO:
-      const test = state.filter((video) =>
-        video.id === action.payload.listId ? video.video : video
+      return state.filter((list) =>
+        list.id === action.payload.listId && list.video.length < 20
+          ? list.video.push(action.payload)
+          : list
       );
-      test.video.push(action.payload);
-      console.log("test==========>", test);
-
-      return [...state];
-
-    // const test= state.filter((video) => video.id === action.payload.listId)
 
     case REMOVE_VIDEO:
-      return state.filter((video) =>
-        video.id === action.payload.listId ? [(video.video = [])] : video
+      return state.filter((list) =>
+        list.id === action.payload.listId && list.video.length > 0
+          ? list.video.pop()
+          : list
       );
 
     case TOGGLE_LIST:
       return state.map((list) =>
         list.id === action.payload.id ? { ...list, done: !list.done } : list
       );
-    case TOGGLE_RESET:
-      const newItems = [...state, action.payload];
 
+    case TOGGLE_RESET:
       return state.map((list) =>
         action.payload.done === false ? { ...list, done: false } : list
       );
+
     case REMOVE_LIST:
       return state.filter((list) => list.id !== action.payload.id);
 

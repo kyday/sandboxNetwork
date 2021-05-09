@@ -30,21 +30,19 @@ function Main(props) {
           {datas &&
             datas.slice(PAGESTART, PAGEEND).map((video, idx) => {
               return (
-                <>
-                  <Link
-                    key={idx}
-                    to={{
-                      pathname: `https://youtube.com/watch?v=${video.video_id}`,
-                    }}
-                    target='_blank'
-                  >
-                    <VideoCard
-                      videoId={video.video_id}
-                      videoTitle={video.title}
-                      thumbnail={video.thumbnail}
-                    />
-                  </Link>
-                </>
+                <Link
+                  key={idx}
+                  to={{
+                    pathname: `https://youtube.com/watch?v=${video.video_id}`,
+                  }}
+                  target='_blank'
+                >
+                  <VideoCard
+                    videoId={video.video_id}
+                    videoTitle={video.title}
+                    thumbnail={video.thumbnail}
+                  />
+                </Link>
               );
             })}
           <Modal />

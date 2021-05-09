@@ -10,25 +10,21 @@ import {
   toggleList,
   removeVideo,
   dataset,
-  showModal,
 } from "../../../../store/actions";
 
 function ListItem(props) {
   const { id, text, done } = props;
-
-  const videos = useSelector((state) => state.listReducer[0].video);
   const videosId = useSelector((state) => state.modalReducer.id);
-
   const dispatch = useDispatch();
-
-  console.log("데이터 쌓이는곳 ===>", videos);
 
   const onToggle = () => {
     dispatch(toggleList(id));
 
-    !done
-      ? dispatch(dataset(videosId, id))
-      : dispatch(removeVideo(videosId, id));
+    if (!done) {
+      dispatch(dataset(videosId, id));
+    } else {
+      dispatch(removeVideo(videosId, id));
+    }
   };
 
   const onRemove = () => {
