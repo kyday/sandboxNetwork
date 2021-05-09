@@ -5,7 +5,6 @@ import Main from "./Pages/Main/Main";
 import Navbar from "./Components/Navbar/Navbar";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import Favorite from "./Pages/Favorite/Favorite";
-import Modal from "./Components/Modal/Modal";
 
 function Routes(props) {
   return (
@@ -16,7 +15,6 @@ function Routes(props) {
         <Route exact path='/' component={Main} />
         <Route exact path='/favorite/:id' component={Favorite} />
       </Switch>
-      {/* <Modal /> */}
     </Router>
   );
 }

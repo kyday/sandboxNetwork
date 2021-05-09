@@ -16,19 +16,19 @@ import {
 function ListItem(props) {
   const { id, text, done } = props;
 
-  const videos = useSelector((state) => state.videoReducer);
-  const videosID = useSelector((state) => state.modalReducer.id);
+  const videos = useSelector((state) => state.listReducer[0].video);
+  const videosId = useSelector((state) => state.modalReducer.id);
 
   const dispatch = useDispatch();
+
+  console.log("데이터 쌓이는곳 ===>", videos);
 
   const onToggle = () => {
     dispatch(toggleList(id));
 
-    if (!done) {
-      dispatch(dataset(videosID, done));
-    } else {
-      dispatch(removeVideo(id));
-    }
+    !done
+      ? dispatch(dataset(videosId, id))
+      : dispatch(removeVideo(videosId, id));
   };
 
   const onRemove = () => {

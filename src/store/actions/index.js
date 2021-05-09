@@ -10,10 +10,7 @@ export const REMOVE_LIST = "REMOVE_LIST";
 export const ADD_VIDEO = "ADD_VIDEO";
 export const REMOVE_VIDEO = "REMOVE_VIDEO";
 
-export const SEND_VIDEO = "SEND_VIDEO";
-
 //modal type
-export const REGISTER_MODAL = "REGISTER_MODAL";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const DROP_MODAL = "DROP_MODAL";
 
@@ -55,47 +52,32 @@ export const toggleListReset = () => {
 };
 
 //video action function
-export const addVideo = (video, done) => {
+export const addVideo = (video, listId) => {
+  console.log("action listID!!!!!!!!!!!!!==>", listId);
   return {
     type: ADD_VIDEO,
     payload: {
       id: video[0].video_id,
       title: video[0].title,
       thumbnail: video[0].thumbnail,
-      done,
+      listId,
     },
   };
 };
 
-export const removeVideo = (id) => {
+export const removeVideo = (id, listId) => {
   return {
     type: REMOVE_VIDEO,
     payload: {
       id,
-    },
-  };
-};
-
-export const sendVideo = (id) => {
-  return {
-    type: SEND_VIDEO,
-    payload: {
-      id,
+      listId,
     },
   };
 };
 
 //modal action function
 
-export const registerModal = (id) => {
-  return {
-    type: REGISTER_MODAL,
-    payload: { id },
-  };
-};
-
 export const showModal = (id) => {
-  console.log("showmodal==>", id);
   return {
     type: SHOW_MODAL,
     payload: {
@@ -113,12 +95,12 @@ export const dropModal = (id) => {
   };
 };
 
-export const dataset = (id, done) => async (dispatch) => {
+export const dataset = (id, listId) => async (dispatch) => {
   try {
-    console.log("done==>", !done);
     const res = await GetAxios.getData();
     const filterData = res.data.filter((item) => item.video_id === id);
-    if (!done) dispatch(addVideo(filterData, !done));
+
+    dispatch(addVideo(filterData, listId));
   } catch (err) {
     console.log(err);
   }

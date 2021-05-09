@@ -8,7 +8,6 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./store/reducers/";
 import { loadState, saveState } from "./utils/localStorage/localStorage";
-
 import thunk from "redux-thunk";
 
 const store = createStore(rootReducer, loadState(), applyMiddleware(thunk));

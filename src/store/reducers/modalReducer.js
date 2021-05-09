@@ -1,7 +1,6 @@
 import { REGISTER_MODAL, SHOW_MODAL, DROP_MODAL } from "../actions/";
 
 const initialState = {
-  id: "",
   modals: false,
 };
 

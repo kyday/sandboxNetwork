@@ -7,11 +7,7 @@ import {
   DropdownMenu,
 } from "styled-dropdown-component";
 import { useDispatch } from "react-redux";
-import {
-  showModal,
-  registerModal,
-  toggleListReset,
-} from "../../../../store/actions";
+import { showModal, toggleListReset } from "../../../../store/actions";
 
 const VideoCard = ({ videoId, videoTitle, thumbnail }) => {
   const [hidden, setHidden] = useState(true);
@@ -26,7 +22,7 @@ const VideoCard = ({ videoId, videoTitle, thumbnail }) => {
   const handleOnModal = (e) => {
     e.preventDefault();
     dispatch(showModal(videoId));
-    // dispatch(toggleListReset());
+    dispatch(toggleListReset());
     setHidden(!hidden);
   };
 

@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 function Sidebar(props) {
   const listNames = useSelector((state) => state.listReducer);
 
+  console.log("listNames-->", listNames);
+
   return (
     <SidebarWrapper>
       <Link to='/'>
