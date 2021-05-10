@@ -3,6 +3,7 @@ import { css } from "styled-components";
 const device = {
   desktop: 1024,
   mobile: 450,
+  ipad: 835,
 };
 
 const deviceObj = Object.keys(device).reduce((acc, label) => {

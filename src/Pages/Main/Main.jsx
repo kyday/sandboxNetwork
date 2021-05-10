@@ -5,19 +5,18 @@ import GetAxios from "../../api/GetAxios";
 import VideoLayout from "../../Styles/VideoLayout";
 import VideoCard from "./Components/VideoCard/VideoCard";
 import Modal from "../../Components/Modal/Modal";
-import { useSelector } from "react-redux";
 
 function Main(props) {
   const [datas, setDatas] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [currentPage, setCurrentPage] = useState(1);
 
-  const PAGEEND = currentPage * 100;
+  const PAGEEND = 1 * 100;
   const PAGESTART = PAGEEND - 100;
 
   const getAxios = useCallback(async () => {
-    const videoList = await GetAxios.getData(currentPage);
+    const videoList = await GetAxios.getData();
     setDatas(videoList.data);
-  }, [currentPage]);
+  }, []);
 
   useEffect(() => {
     getAxios();

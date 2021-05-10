@@ -11,4 +11,8 @@ export const MainWrapper = styled.main`
   margin-left: 11%;
   padding: 7% 5%;
   background-color: ${({ theme }) => theme.colors.black};
+
+  ${({ theme }) => theme.deviceObj.ipad`
+      padding: 20%;
+  `};
 `;

@@ -14,6 +14,11 @@ export const REMOVE_VIDEO = "REMOVE_VIDEO";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const DROP_MODAL = "DROP_MODAL";
 
+//favorite type
+
+export const FAVORITE_MODIFY_TITLE = "FAVORITE_MODIFY_TITLE";
+export const FAVORITE_DELETE = "FAVORITE_DELETE";
+
 //list action function
 export const addList = (text) => {
   return {
@@ -64,11 +69,10 @@ export const addVideo = (video, listId) => {
   };
 };
 
-export const removeVideo = (id, listId) => {
+export const removeVideo = (listId) => {
   return {
     type: REMOVE_VIDEO,
     payload: {
-      id,
       listId,
     },
   };
@@ -89,6 +93,28 @@ export const dropModal = (id) => {
     type: DROP_MODAL,
     payload: {
       id,
+    },
+  };
+};
+
+export const modifyTitle = (id, text) => {
+  console.log("액션--->", id, text);
+  return {
+    type: FAVORITE_MODIFY_TITLE,
+    payload: {
+      id,
+      text,
+    },
+  };
+};
+
+export const favoriteDeleteVideo = (value, listId) => {
+  console.log("액션--->", value, listId);
+  return {
+    type: FAVORITE_DELETE,
+    payload: {
+      value,
+      listId,
     },
   };
 };

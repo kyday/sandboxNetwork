@@ -5,7 +5,6 @@ import { MdDone } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import {
-  addList,
   removeList,
   toggleList,
   removeVideo,
@@ -14,6 +13,7 @@ import {
 
 function ListItem(props) {
   const { id, text, done } = props;
+
   const videosId = useSelector((state) => state.modalReducer.id);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ function ListItem(props) {
     if (!done) {
       dispatch(dataset(videosId, id));
     } else {
-      dispatch(removeVideo(videosId, id));
+      dispatch(removeVideo(id));
     }
   };
 
@@ -79,6 +79,7 @@ export const Text = styled.div`
 
 export const ItemContainer = styled.div`
   ${({ theme }) => theme.flexCenter};
+
   justify-content: space-around;
   &:hover {
     ${Remove} {

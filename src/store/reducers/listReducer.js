@@ -5,6 +5,8 @@ import {
   TOGGLE_RESET,
   ADD_VIDEO,
   REMOVE_VIDEO,
+  FAVORITE_MODIFY_TITLE,
+  FAVORITE_DELETE,
 } from "../actions/";
 
 const initialState = [];
@@ -45,6 +47,20 @@ const listReducer = (state = initialState, action) => {
 
     case REMOVE_LIST:
       return state.filter((list) => list.id !== action.payload.id);
+
+    case FAVORITE_MODIFY_TITLE:
+      return state.map((list) =>
+        list.id === action.payload.id
+          ? { ...list, text: action.payload.text }
+          : list
+      );
+
+    case FAVORITE_DELETE:
+      return state.map((list) =>
+        list.id === action.payload.listId
+          ? { ...list, video: action.payload.value }
+          : list
+      );
 
     default:
       return state;
