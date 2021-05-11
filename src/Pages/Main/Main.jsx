@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import MainLayout from "../../Components/Layout/MainLayout";
 import GetAxios from "../../api/GetAxios";
 import VideoLayout from "../../Styles/VideoLayout";
@@ -8,26 +9,47 @@ import Modal from "../../Components/Modal/Modal";
 
 function Main(props) {
   const [datas, setDatas] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const pageEnd = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const PAGEEND = 1 * 100;
+  const PAGEEND = currentPage * 100;
   const PAGESTART = PAGEEND - 100;
 
-  const getAxios = useCallback(async () => {
-    const videoList = await GetAxios.getData();
-    setDatas(videoList.data);
-  }, []);
+  const loadMore = useCallback(() => {
+    setCurrentPage(currentPage + 1);
+  }, [currentPage]);
 
   useEffect(() => {
+    if (loading) {
+      const observer = new IntersectionObserver(
+        (entires) => {
+          if (entires[0].isIntersecting) {
+            loadMore();
+          }
+        },
+        { threshold: 1 }
+      );
+      observer.observe(pageEnd.current);
+    }
+  }, [loading, loadMore]);
+
+  useEffect(() => {
+    const getAxios = async () => {
+      setLoading(true);
+      const videoList = await GetAxios.getData();
+      setDatas(videoList?.data);
+      setLoading(false);
+    };
     getAxios();
-  }, [getAxios]);
+  }, []);
 
   return (
     <MainLayout>
       <VideoLayout>
         <>
           {datas &&
-            datas.slice(PAGESTART, PAGEEND).map((video, idx) => {
+            datas?.slice(PAGESTART, PAGEEND).map((video, idx) => {
               return (
                 <Link
                   key={idx}
@@ -44,6 +66,7 @@ function Main(props) {
                 </Link>
               );
             })}
+          <Loding ref={pageEnd}>{loading && "Loading..."}</Loding>
           <Modal />
         </>
       </VideoLayout>
@@ -52,3 +75,9 @@ function Main(props) {
 }
 
 export default Main;
+
+const Loding = styled.div`
+  width: 100%;
+  color: ${({ theme }) => theme.colors.white};
+  margin: 0 auto;
+`;

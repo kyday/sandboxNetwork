@@ -1,4 +1,4 @@
-import { REGISTER_MODAL, SHOW_MODAL, DROP_MODAL } from "../actions/";
+import { SHOW_MODAL, DROP_MODAL } from "../actions/";
 
 const initialState = {
   modals: false,

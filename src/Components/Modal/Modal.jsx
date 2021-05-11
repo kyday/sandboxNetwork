@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import ListItem from "./Components/ListItem/ListItem";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addList, dropModal } from "../../store/actions/";
 import { AiOutlineClose } from "react-icons/ai";
@@ -11,7 +10,6 @@ function Modal() {
   const status = useSelector((state) => state.modalReducer.modals);
   const lists = useSelector((state) => state.listReducer);
   const dispatch = useDispatch();
-  const { id } = useParams;
 
   const onModalClose = () => {
     dispatch(dropModal());

@@ -5,7 +5,7 @@ import { HomeIcon } from "../Icons/Icons";
 import { MdPlaylistPlay } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { BiFolderPlus } from "react-icons/bi";
-import { toggleList, removeList } from "../../store/actions";
+import { toggleList } from "../../store/actions";
 
 function Sidebar(props) {
   const listNames = useSelector((state) => state.listReducer);
@@ -13,20 +13,16 @@ function Sidebar(props) {
   const [inHover, setInHover] = useState(false);
   const [isListId, setIsListId] = useState("");
 
-  console.log("listNames다ㅏㅏㅏㅏㅏㅏ", listNames);
-
   const dispatch = useDispatch();
 
   const onMergeCheck = (e, id) => {
     e.preventDefault();
     dispatch(toggleList(id));
     setIsListId(id);
-
-    console.log(isListId);
   };
 
   const onMergeList = () => {
-    console.log(isListId);
+    //구현을 못했습니다..
   };
 
   return (
