@@ -5,17 +5,15 @@ import { FaSistrix } from "react-icons/fa";
 
 function Navbar(props) {
   return (
-    <>
-      <NavWrapper>
-        <NavTitle>Youtube</NavTitle>
-        <SiYoutube size={35} color='#fff' />
+    <NavWrapper>
+      <NavTitle>Youtube</NavTitle>
+      <SiYoutube size={35} color='#fff' />
 
-        <SearchGroup>
-          <Search placeholder='Search' />
-          <FaSistrix className='icon' />
-        </SearchGroup>
-      </NavWrapper>
-    </>
+      <SearchGroup>
+        <Search placeholder='Search' />
+        <FaSistrix className='icon' />
+      </SearchGroup>
+    </NavWrapper>
   );
 }
 
